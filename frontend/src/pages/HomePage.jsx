@@ -1,0 +1,255 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Brain, BookOpen, Users, Rocket, Star, Target, Clock, Award } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+
+const HomePage = () => {
+  const { currentUser } = useAuth();
+
+  return (
+    <div className="space-y-20">
+      {/* Hero Section - Modern Glass Design */}
+      <section className="text-center py-20 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200 rounded-full blur-xl opacity-60 animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-24 h-24 bg-purple-200 rounded-full blur-xl opacity-60 animate-float" style={{animationDelay: '2s'}}></div>
+        
+        <div className="relative max-w-6xl mx-auto px-4">
+          <div className="glass rounded-3xl p-12 backdrop-blur-lg border border-white/30 shadow-2xl animate-fade-in-up">
+            <div className="flex justify-center mb-6">
+              <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 rounded-2xl shadow-lg">
+                <Brain className="w-12 h-12 text-white" />
+              </div>
+            </div>
+            
+            <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+              AI-Powered{' '}
+              <span className="gradient-text bg-gradient-to-r from-blue-600 to-purple-600">
+                Personal Tutor
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Experience the future of education with personalized learning journeys, 
+              adaptive AI curriculum, and 24/7 intelligent tutoring tailored just for you.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+              {currentUser ? (
+                <Link
+                  to="/dashboard"
+                  className="btn-primary group inline-flex items-center justify-center text-lg px-8 py-4"
+                >
+                  <Rocket className="w-5 h-5 mr-3 group-hover:rotate-12 transition-transform" />
+                  Continue Learning Journey
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/register"
+                    className="btn-primary group inline-flex items-center justify-center text-lg px-8 py-4"
+                  >
+                    <Star className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                    Start Learning Free
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="btn-secondary group inline-flex items-center justify-center text-lg px-8 py-4"
+                  >
+                    <Target className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                    Sign In
+                  </Link>
+                </>
+              )}
+            </div>
+            
+            {/* Stats Bar */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-8 border-t border-gray-200/50">
+              {[
+                { number: '10K+', label: 'Students Helped' },
+                { number: '98%', label: 'Success Rate' },
+                { number: '24/7', label: 'AI Support' },
+                { number: '4.9★', label: 'Rating' }
+              ].map((stat, index) => (
+                <div key={stat.label} className="text-center animate-fade-in-up" style={{animationDelay: `${index * 0.2}s`}}>
+                  <div className="text-2xl md:text-3xl font-bold gradient-text">{stat.number}</div>
+                  <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section - Modern Cards */}
+      <section className="py-16 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Why Choose{' '}
+              <span className="gradient-text bg-gradient-to-r from-blue-600 to-purple-600">
+                Personal Tutor Bot?
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Revolutionizing education with cutting-edge AI technology and personalized learning experiences
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Brain,
+                title: 'AI-Powered Curriculum',
+                description: 'Get personalized 8-week study plans generated by advanced AI based on your learning style, weak subjects, and academic goals.',
+                color: 'from-blue-500 to-cyan-500',
+                features: ['Personalized Learning Path', 'Adaptive Difficulty', 'Progress Tracking']
+              },
+              {
+                icon: BookOpen,
+                title: 'Adaptive Learning',
+                description: 'Our intelligent AI tutor dynamically adjusts content difficulty based on your performance and understanding in real-time.',
+                color: 'from-green-500 to-emerald-500',
+                features: ['Real-time Adaptation', 'Personalized Challenges', 'Mastery-Based Progression']
+              },
+              {
+                icon: Users,
+                title: '24/7 Tutoring Support',
+                description: 'Get instant help with homework and concepts through our advanced AI chatbot tutor, available anytime you need assistance.',
+                color: 'from-purple-500 to-pink-500',
+                features: ['Instant Help', 'Step-by-Step Solutions', 'Concept Explanations']
+              }
+            ].map((feature, index) => (
+              <div 
+                key={feature.title}
+                className="card group hover-lift animate-fade-in-up"
+                style={{animationDelay: `${index * 0.3}s`}}
+              >
+                <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{feature.description}</p>
+                
+                <ul className="space-y-2">
+                  {feature.features.map((item, idx) => (
+                    <li key={idx} className="flex items-center text-sm text-gray-600">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${feature.color} rounded-full mr-3`}></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works - Modern Steps */}
+      <section className="py-16 relative">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="glass rounded-3xl p-12 backdrop-blur-lg border border-white/30 shadow-2xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                How It{' '}
+                <span className="gradient-text bg-gradient-to-r from-blue-600 to-purple-600">
+                  Works
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Start your personalized learning journey in just four simple steps
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { 
+                  step: '1', 
+                  title: 'Create Profile', 
+                  desc: 'Set up your student profile with learning preferences and academic goals',
+                  icon: Users
+                },
+                { 
+                  step: '2', 
+                  title: 'AI Analysis', 
+                  desc: 'Our AI analyzes your strengths and creates a personalized curriculum',
+                  icon: Brain
+                },
+                { 
+                  step: '3', 
+                  title: 'Learn & Grow', 
+                  desc: 'Follow daily lessons with adaptive AI tutoring and practice',
+                  icon: BookOpen
+                },
+                { 
+                  step: '4', 
+                  title: 'Track Success', 
+                  desc: 'Monitor your progress with detailed analytics and achievements',
+                  icon: Award
+                }
+              ].map((item, index) => (
+                <div 
+                  key={item.step} 
+                  className="text-center group animate-fade-in-up"
+                  style={{animationDelay: `${index * 0.2}s`}}
+                >
+                  <div className="relative mb-6">
+                    <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center font-bold text-2xl text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      {item.step}
+                    </div>
+                    {/* Connecting Line */}
+                    {index < 3 && (
+                      <div className="hidden lg:block absolute top-10 left-1/2 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 opacity-30 -z-10"></div>
+                    )}
+                  </div>
+                  
+                  <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 group-hover:border-blue-300 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white shadow-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Ready to Transform Your Learning?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Join thousands of students who are already experiencing the future of personalized education
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {currentUser ? (
+                <Link
+                  to="/dashboard"
+                  className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
+                >
+                  <Rocket className="w-5 h-5 mr-2" />
+                  Continue to Dashboard
+                </Link>
+              ) : (
+                <Link
+                  to="/register"
+                  className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
+                >
+                  <Star className="w-5 h-5 mr-2" />
+                  Start Your Journey Today
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default HomePage;
